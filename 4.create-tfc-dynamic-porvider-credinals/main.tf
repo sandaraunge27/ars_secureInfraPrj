@@ -67,14 +67,13 @@ path "sys/policies/*" {
 path "sys/policies/" {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
+path "example/*" {
+  capabilities = ["create", "read", "update", "patch", "delete", "list"]
+}
 EOT
 }
 
-resource "vault_jwt_auth_backend" "jwt" {
-  path = "jwt"
-}
-
-resource "vault_jwt_auth_backend_role" "example" {
+resource "vault_jwt_auth_backend_role" "jwt_role" {
   backend         = vault_jwt_auth_backend.secureops-jwt-backend.path
   role_name       = "vault-jwt-auth-role"
   token_policies  = vault_policy.admin-policy.name
